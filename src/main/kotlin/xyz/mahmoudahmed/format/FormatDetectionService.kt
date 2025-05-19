@@ -10,7 +10,6 @@ class FormatDetectionService(private val sampleSize: Int = 8192) {
     private val registry = FormatDetectorRegistry()
 
     init {
-        // Register built-in detectors
         registry.register(JsonFormatDetector())
         registry.register(XmlFormatDetector())
         registry.register(CsvFormatDetector())
@@ -37,13 +36,10 @@ class FormatDetectionService(private val sampleSize: Int = 8192) {
      * Detect format from a file
      */
     fun detectFormat(file: File): FormatType {
-        // First try by extension
         val extensionType = detectByExtension(file.extension)
         if (extensionType != FormatType.UNKNOWN) {
             return extensionType
         }
-
-        // If extension detection failed, try by content
         return file.inputStream().use { detectFormat(it) }
     }
 

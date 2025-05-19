@@ -18,12 +18,11 @@ class FormatDetectorRegistry {
 
         detectors.forEach { detector ->
             val confidence = detector.detect(data)
-            if (confidence > highestConfidence) {
+            if (confidence > highestConfidence &&  confidence > 0.2) {
                 highestConfidence = confidence
                 bestMatch = detector.formatType
             }
         }
-
         return bestMatch
     }
 }
