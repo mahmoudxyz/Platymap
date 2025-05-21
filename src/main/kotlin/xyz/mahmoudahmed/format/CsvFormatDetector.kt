@@ -23,6 +23,12 @@ class CsvFormatDetector : FormatDetector {
     override fun detect(data: ByteArray): Float {
         if (data.isEmpty()) return 0.0f
 
+        val text = String(data.copyOfRange(0, Math.min(100, data.size)), StandardCharsets.UTF_8).trim()
+
+        if ((text.startsWith("{")) ||
+            (text.startsWith("["))) {
+            return 0.0f
+        }
         try {
             val reader = BufferedReader(InputStreamReader(
                 ByteArrayInputStream(data), StandardCharsets.UTF_8))
