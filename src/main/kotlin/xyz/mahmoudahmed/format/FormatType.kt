@@ -13,5 +13,6 @@ enum class FormatType {
     PROTOBUF,
     PARQUET,
     EXCEL,
-    UNKNOWN
+    UNKNOWN,
+    JAVA_BEAN
 }
