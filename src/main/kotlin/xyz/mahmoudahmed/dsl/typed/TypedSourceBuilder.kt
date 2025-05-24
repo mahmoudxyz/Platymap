@@ -1,13 +1,13 @@
 package xyz.mahmoudahmed.dsl.typed
 
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 
 class TypedSourceBuilder<S>(
     private val sourceClass: Class<S>
 ) {
-    private var sourceFormat: FormatType = FormatType.JSON
+    private var sourceFormat: Format = Format.JSON
 
-    fun withFormat(format: FormatType): TypedSourceBuilder<S> {
+    fun withFormat(format: Format): TypedSourceBuilder<S> {
         this.sourceFormat = format
         return this
     }

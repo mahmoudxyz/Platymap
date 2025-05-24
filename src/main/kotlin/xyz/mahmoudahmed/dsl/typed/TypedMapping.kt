@@ -4,13 +4,13 @@ import xyz.mahmoudahmed.adapter.DataNode
 import xyz.mahmoudahmed.dsl.core.MappingContext
 import xyz.mahmoudahmed.dsl.core.MappingExecutionException
 import xyz.mahmoudahmed.dsl.core.MappingRule
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 
 class TypedMapping<S, T>(
     private val sourceClass: Class<S>,
-    private val sourceFormat: FormatType,
+    private val sourceFormat: Format,
     private val targetClass: Class<T>,
-    private val targetFormat: FormatType,
+    private val targetFormat: Format,
     rules: List<MappingRule>
 ) {
     private val rules = ArrayList(rules)
@@ -18,7 +18,7 @@ class TypedMapping<S, T>(
     @Suppress("UNCHECKED_CAST")
     fun execute(source: S): T {
         try {
-            val target: T = if (targetFormat == FormatType.JAVA_BEAN) {
+            val target: T = if (targetFormat == Format.JAVA_BEAN) {
                 targetClass.getDeclaredConstructor().newInstance()
             } else {
                 DataNode.ObjectNode() as T

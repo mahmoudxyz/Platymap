@@ -14,5 +14,5 @@ interface FormatDetector {
     /**
      * Returns the format type this detector is responsible for
      */
-    val formatType: FormatType
+    val format: Format
 }

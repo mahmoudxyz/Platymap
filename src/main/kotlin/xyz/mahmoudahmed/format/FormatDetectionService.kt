@@ -19,7 +19,7 @@ class FormatDetectionService(private val sampleSize: Int = 8192) {
     /**
      * Detect format from a byte array
      */
-    fun detectFormat(data: ByteArray): FormatType {
+    fun detectFormat(data: ByteArray): Format {
         val sample = if (data.size > sampleSize) data.copyOfRange(0, sampleSize) else data
         return registry.detectFormat(sample)
     }
@@ -27,7 +27,7 @@ class FormatDetectionService(private val sampleSize: Int = 8192) {
     /**
      * Detect format from an input stream
      */
-    fun detectFormat(inputStream: InputStream): FormatType {
+    fun detectFormat(inputStream: InputStream): Format {
         val bytes = inputStream.readNBytes(sampleSize)
         return detectFormat(bytes)
     }
@@ -35,9 +35,9 @@ class FormatDetectionService(private val sampleSize: Int = 8192) {
     /**
      * Detect format from a file
      */
-    fun detectFormat(file: File): FormatType {
+    fun detectFormat(file: File): Format {
         val extensionType = detectByExtension(file.extension)
-        if (extensionType != FormatType.UNKNOWN) {
+        if (extensionType != Format.UNKNOWN) {
             return extensionType
         }
         return file.inputStream().use { detectFormat(it) }
@@ -53,18 +53,18 @@ class FormatDetectionService(private val sampleSize: Int = 8192) {
     /**
      * Helper method to detect format by file extension
      */
-    private fun detectByExtension(extension: String): FormatType {
+    private fun detectByExtension(extension: String): Format {
         return when (extension.lowercase()) {
-            "json" -> FormatType.JSON
-            "xml" -> FormatType.XML
-            "csv" -> FormatType.CSV
-            "yml", "yaml" -> FormatType.YAML
-            "properties" -> FormatType.PROPERTIES
-            "avro" -> FormatType.AVRO
-            "proto" -> FormatType.PROTOBUF
-            "parquet" -> FormatType.PARQUET
-            "xls", "xlsx" -> FormatType.EXCEL
-            else -> FormatType.UNKNOWN
+            "json" -> Format.JSON
+            "xml" -> Format.XML
+            "csv" -> Format.CSV
+            "yml", "yaml" -> Format.YAML
+            "properties" -> Format.PROPERTIES
+            "avro" -> Format.AVRO
+            "proto" -> Format.PROTOBUF
+            "parquet" -> Format.PARQUET
+            "xls", "xlsx" -> Format.EXCEL
+            else -> Format.UNKNOWN
         }
     }
 }

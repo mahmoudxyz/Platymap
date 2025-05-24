@@ -11,7 +11,7 @@ import kotlin.math.max
  * intelligent structure analysis, and dynamic content validation.
  */
 class JsonFormatDetector : FormatDetector {
-    override val formatType = FormatType.JSON
+    override val format = Format.JSON
 
     override fun detect(data: ByteArray): Float {
         if (data.isEmpty()) return 0.0f

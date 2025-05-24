@@ -4,7 +4,7 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import xyz.mahmoudahmed.adapter.*
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.InputStream
@@ -19,8 +19,8 @@ class XmlInputAdapter : InputAdapter {
         documentBuilderFactory.isIgnoringComments = true
     }
 
-    override fun canHandle(formatType: FormatType): Boolean =
-        formatType == FormatType.XML
+    override fun canHandle(format: Format): Boolean =
+        format == Format.XML
 
     override fun parse(data: ByteArray): DataNode =
         parse(ByteArrayInputStream(data))

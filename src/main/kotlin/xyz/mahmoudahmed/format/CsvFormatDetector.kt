@@ -10,7 +10,7 @@ import java.io.ByteArrayInputStream
  * delimiters, quoted fields, and intelligent pattern analysis.
  */
 class CsvFormatDetector : FormatDetector {
-    override val formatType = FormatType.CSV
+    override val format = Format.CSV
 
 
     private val possibleDelimiters = listOf(',', ';', '\t', '|')

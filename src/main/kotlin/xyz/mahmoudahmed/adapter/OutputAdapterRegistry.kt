@@ -1,6 +1,6 @@
 package xyz.mahmoudahmed.adapter
 
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 
 class OutputAdapterRegistry {
     private val adapters = mutableListOf<OutputAdapter>()
@@ -9,8 +9,8 @@ class OutputAdapterRegistry {
         adapters.add(adapter)
     }
 
-    fun getAdapter(formatType: FormatType): OutputAdapter {
-        return adapters.find { it.canHandle(formatType) }
-            ?: throw UnsupportedFormatException("No output adapter found for format: $formatType")
+    fun getAdapter(format: Format): OutputAdapter {
+        return adapters.find { it.canHandle(format) }
+            ?: throw UnsupportedFormatException("No output adapter found for format: $format")
     }
 }

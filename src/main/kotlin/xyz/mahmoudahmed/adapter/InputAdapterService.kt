@@ -6,7 +6,7 @@ import xyz.mahmoudahmed.adapter.json.JsonOutputAdapter
 import xyz.mahmoudahmed.adapter.xml.XmlInputAdapter
 import xyz.mahmoudahmed.adapter.xml.XmlOutputAdapter
 import xyz.mahmoudahmed.format.FormatDetectionService
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
@@ -63,18 +63,18 @@ class InputAdapterService {
         adapterRegistry.register(adapter)
     }
 
-    fun serializeData(node: DataNode, formatType: FormatType): String {
-        val adapter = outputAdapterRegistry.getAdapter(formatType)
+    fun serializeData(node: DataNode, format: Format): String {
+        val adapter = outputAdapterRegistry.getAdapter(format)
         return adapter.serialize(node)
     }
 
-    fun serializeData(node: DataNode, formatType: FormatType, writer: Writer) {
-        val adapter = outputAdapterRegistry.getAdapter(formatType)
+    fun serializeData(node: DataNode, format: Format, writer: Writer) {
+        val adapter = outputAdapterRegistry.getAdapter(format)
         adapter.serialize(node, writer)
     }
 
-    fun serializeData(node: DataNode, formatType: FormatType, outputStream: OutputStream) {
-        val adapter = outputAdapterRegistry.getAdapter(formatType)
+    fun serializeData(node: DataNode, format: Format, outputStream: OutputStream) {
+        val adapter = outputAdapterRegistry.getAdapter(format)
         adapter.serialize(node, outputStream)
     }
 

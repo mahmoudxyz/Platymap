@@ -7,7 +7,7 @@ import java.util.regex.Pattern
  * YAML format detector with improved accuracy in functional programming style
  */
 class YamlFormatDetector : FormatDetector {
-    override val formatType = FormatType.YAML
+    override val format = Format.YAML
 
     private val keyValuePattern = Pattern.compile("^\\s*[\\w.-]+\\s*:\\s*.*$")
     private val listItemPattern = Pattern.compile("^\\s*-\\s+.*$")

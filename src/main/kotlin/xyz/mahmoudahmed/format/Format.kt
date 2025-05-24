@@ -3,7 +3,7 @@ package xyz.mahmoudahmed.format
 /**
  * Enum representing supported data formats
  */
-enum class FormatType {
+enum class Format {
     JSON,
     XML,
     CSV,

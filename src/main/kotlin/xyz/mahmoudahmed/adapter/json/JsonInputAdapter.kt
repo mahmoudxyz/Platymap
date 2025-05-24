@@ -4,15 +4,15 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.*
 import xyz.mahmoudahmed.adapter.*
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 import java.io.File
 import java.io.InputStream
 
 class JsonInputAdapter : InputAdapter {
     private val objectMapper = ObjectMapper()
 
-    override fun canHandle(formatType: FormatType): Boolean =
-        formatType == FormatType.JSON
+    override fun canHandle(format: Format): Boolean =
+        format == Format.JSON
 
     override fun parse(data: ByteArray): DataNode =
         parseJsonNode(objectMapper.readTree(data))

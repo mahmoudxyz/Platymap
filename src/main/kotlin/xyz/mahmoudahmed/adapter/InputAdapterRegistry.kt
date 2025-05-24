@@ -1,6 +1,6 @@
 package xyz.mahmoudahmed.adapter
 
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 
 
 class InputAdapterRegistry {
@@ -10,9 +10,9 @@ class InputAdapterRegistry {
         adapters.add(adapter)
     }
 
-    fun getAdapter(formatType: FormatType): InputAdapter {
-        return adapters.find { it.canHandle(formatType) }
-            ?: throw UnsupportedFormatException("No adapter found for format: $formatType")
+    fun getAdapter(format: Format): InputAdapter {
+        return adapters.find { it.canHandle(format) }
+            ?: throw UnsupportedFormatException("No adapter found for format: $format")
     }
 }
 

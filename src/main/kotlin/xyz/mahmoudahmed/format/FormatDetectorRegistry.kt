@@ -10,17 +10,17 @@ class FormatDetectorRegistry {
         detectors.add(detector)
     }
 
-    fun detectFormat(data: ByteArray): FormatType {
-        if (data.isEmpty()) return FormatType.UNKNOWN
+    fun detectFormat(data: ByteArray): Format {
+        if (data.isEmpty()) return Format.UNKNOWN
 
-        var bestMatch = FormatType.UNKNOWN
+        var bestMatch = Format.UNKNOWN
         var highestConfidence = 0.0f
 
         detectors.forEach { detector ->
             val confidence = detector.detect(data)
             if (confidence > highestConfidence &&  confidence > 0.2) {
                 highestConfidence = confidence
-                bestMatch = detector.formatType
+                bestMatch = detector.format
             }
         }
         return bestMatch

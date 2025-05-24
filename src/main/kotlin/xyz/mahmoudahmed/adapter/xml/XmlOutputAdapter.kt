@@ -4,7 +4,7 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import xyz.mahmoudahmed.adapter.DataNode
 import xyz.mahmoudahmed.adapter.OutputAdapter
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 import java.io.OutputStream
 import java.io.StringWriter
 import java.io.Writer
@@ -14,8 +14,8 @@ import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
 class XmlOutputAdapter : OutputAdapter {
-    override fun canHandle(formatType: FormatType): Boolean =
-        formatType == FormatType.XML
+    override fun canHandle(format: Format): Boolean =
+        format == Format.XML
 
     override fun serialize(node: DataNode): String {
         val stringWriter = StringWriter()

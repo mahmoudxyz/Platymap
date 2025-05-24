@@ -1,17 +1,17 @@
 package xyz.mahmoudahmed.dsl.typed
 
 import xyz.mahmoudahmed.dsl.core.MappingRule
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 
 class TypedTargetBuilder<S, T>(
     private val sourceClass: Class<S>,
-    private val sourceFormat: FormatType,
+    private val sourceFormat: Format,
     private val targetClass: Class<T>
 ) {
-    private var targetFormat: FormatType = FormatType.JSON
+    private var targetFormat: Format = Format.JSON
     private val rules = mutableListOf<MappingRule>()
 
-    fun withFormat(format: FormatType): TypedTargetBuilder<S, T> {
+    fun withFormat(format: Format): TypedTargetBuilder<S, T> {
         this.targetFormat = format
         return this
     }

@@ -1,5 +1,7 @@
 package xyz.mahmoudahmed.validation.builders
 
+import xyz.mahmoudahmed.logging.LogLevel
+import xyz.mahmoudahmed.logging.ValidationLogRule
 import xyz.mahmoudahmed.validation.core.InValidator
 import xyz.mahmoudahmed.validation.core.PreValidator
 import xyz.mahmoudahmed.validation.rules.FieldGroupValidator
@@ -92,4 +94,26 @@ class ValidationDslBuilder {
         addRule(PathValidationRule(firstPath, validator))
         return this
     }
+
+    /**
+     * Adds a log message at INFO level during validation
+     */
+    fun log(message: String, level: LogLevel = LogLevel.INFO): ValidationDslBuilder {
+        rules.run { add(ValidationLogRule(message, level, emptyList())) }
+        return this
+    }
+
+    /**
+     * Logs specific data paths during validation
+     */
+    fun logData(message: String, vararg paths: String, level: LogLevel = LogLevel.INFO): ValidationDslBuilder {
+        rules.add(ValidationLogRule(message, level, paths.toList()))
+        return this
+    }
+    fun trace(message: String): ValidationDslBuilder = log(message, LogLevel.TRACE)
+    fun debug(message: String): ValidationDslBuilder = log(message, LogLevel.DEBUG)
+    fun info(message: String): ValidationDslBuilder = log(message, LogLevel.INFO)
+    fun warn(message: String): ValidationDslBuilder = log(message, LogLevel.WARN)
+    fun error(message: String): ValidationDslBuilder = log(message, LogLevel.ERROR)
+
 }

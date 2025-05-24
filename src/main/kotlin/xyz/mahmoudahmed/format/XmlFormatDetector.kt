@@ -9,7 +9,7 @@ import java.util.regex.Pattern
  * and intelligent confidence scoring.
  */
 class XmlFormatDetector : FormatDetector {
-    override val formatType = FormatType.XML
+    override val format = Format.XML
 
     // Regex patterns for XML structure analysis
     private val XML_DECLARATION_PATTERN = Pattern.compile(

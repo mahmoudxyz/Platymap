@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap
 class MappingContext(val sourceData: Any) {
     private val variables = mutableMapOf<String, Any>()
     private val pathCache = ConcurrentHashMap<String, PathAccessor>()
+    val properties = mutableMapOf<String, Any>()
 
     /**
      * Sets a variable in the current context.
@@ -63,6 +64,14 @@ class MappingContext(val sourceData: Any) {
                 extractValueByPath(sourceData, path)
             }
         }
+    }
+
+    fun setProperty(key: String, value: Any) {
+        properties[key] = value
+    }
+
+    fun getProperty(key: String): Any? {
+        return properties[key]
     }
 
     /**

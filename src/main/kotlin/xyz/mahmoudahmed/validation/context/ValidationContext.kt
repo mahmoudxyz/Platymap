@@ -7,6 +7,16 @@ import xyz.mahmoudahmed.adapter.DataNode
  */
 class ValidationContext(val data: Any) {
     private val variables = mutableMapOf<String, Any?>()
+    val properties = mutableMapOf<String, Any>()
+
+
+    fun setProperty(key: String, value: Any) {
+        properties[key] = value
+    }
+
+    fun getProperty(key: String): Any? {
+        return properties[key]
+    }
 
     /**
      * Gets a value from the data by path.

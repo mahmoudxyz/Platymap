@@ -15,7 +15,9 @@ abstract class DataValidator {
      * Validates data against all rules.
      */
     fun validate(data: Any, config: ValidationConfig = ValidationConfig()): ValidationResult {
-        val context = ValidationContext(data)
+        // Create context and allow subclasses to initialize it
+        val context = createContext(data, config)
+
         var combined = ValidationResult.valid()
 
         for (rule in rules) {
@@ -42,6 +44,17 @@ abstract class DataValidator {
         }
 
         return combined
+    }
+
+    /**
+     * Creates and initializes the validation context.
+     * Subclasses can override this to customize context initialization.
+     */
+    protected open fun createContext(data: Any, config: ValidationConfig): ValidationContext {
+        val context = ValidationContext(data)
+        // Initialize with logging configuration
+        context.properties["includeDataInLogs"] = config.includeDataInLogs
+        return context
     }
 
     /**

@@ -4,9 +4,11 @@ import xyz.mahmoudahmed.adapter.InputAdapterService
 import xyz.mahmoudahmed.dsl.functions.FunctionBuilder
 import xyz.mahmoudahmed.dsl.builders.SourceBuilder
 import xyz.mahmoudahmed.dsl.typed.TypedSourceBuilder
+import xyz.mahmoudahmed.logging.LoggingConfig
+import xyz.mahmoudahmed.logging.LoggingDslBuilder
 
 /**
- * The main entry point for the mapping DSL.
+ * The xyz.mahmoudahmed.main entry point for the mapping DSL.
  */
 object Platymap {
     private val adapterService = InputAdapterService()
@@ -48,5 +50,17 @@ object Platymap {
      */
     fun getAdapterService(): InputAdapterService {
         return adapterService
+    }
+
+    fun configureLogging(init: LoggingDslBuilder.() -> Unit) {
+        val logBuilder = LoggingDslBuilder()
+        logBuilder.init()
+        val config = logBuilder.build()
+
+        // Apply to global logging config
+        LoggingConfig.minLevel = config.minLevel
+        LoggingConfig.formatter = config.formatter
+        LoggingConfig.destinations.clear()
+        LoggingConfig.destinations.addAll(config.destinations)
     }
 }

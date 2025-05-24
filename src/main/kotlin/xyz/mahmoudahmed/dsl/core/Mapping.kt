@@ -1,21 +1,22 @@
 package xyz.mahmoudahmed.dsl.core
 
 import xyz.mahmoudahmed.adapter.DataNode
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 import java.io.File
 import java.io.OutputStream
 import java.io.Writer
 
 
 /**
- * The main mapping class that executes the transformation from source to target.
+ * The xyz.mahmoudahmed.main mapping class that executes the transformation from source to target.
  */
 class Mapping(
     val sourceName: String,
-    private val sourceFormat: FormatType,
+    private val sourceFormat: Format,
     val targetName: String,
-    private val targetFormat: FormatType,
-    private val rules: List<MappingRule>
+    private val targetFormat: Format,
+    private val rules: List<MappingRule>,
+    private val properties: Map<String, Any> = emptyMap()
 ) {
 
     /**
@@ -36,6 +37,9 @@ class Mapping(
         }
 
         val context = MappingContext(sourceNode)
+        properties.forEach { (key, value) ->
+            context.properties[key] = value
+        }
         val targetNode = DataNode.ObjectNode()
 
         try {
@@ -60,7 +64,7 @@ class Mapping(
      * @param outputFormat The desired output format
      * @return The mapped data as a string in the specified format
      */
-    fun executeToFormat(sourceData: Any, outputFormat: FormatType): String {
+    fun executeToFormat(sourceData: Any, outputFormat: Format): String {
         val result = execute(sourceData) as DataNode
         return Platymap.getAdapterService().serializeData(
             result,
@@ -75,7 +79,7 @@ class Mapping(
      * @param outputFormat The desired output format
      * @param writer The writer to write the result to
      */
-    fun executeToFormat(sourceData: Any, outputFormat: FormatType, writer: Writer) {
+    fun executeToFormat(sourceData: Any, outputFormat: Format, writer: Writer) {
         val result = execute(sourceData) as DataNode
         Platymap.getAdapterService().serializeData(
             result,
@@ -91,7 +95,7 @@ class Mapping(
      * @param outputFormat The desired output format
      * @param outputStream The output stream to write the result to
      */
-    fun executeToFormat(sourceData: Any, outputFormat: FormatType, outputStream: OutputStream) {
+    fun executeToFormat(sourceData: Any, outputFormat: Format, outputStream: OutputStream) {
         val result = execute(sourceData) as DataNode
         Platymap.getAdapterService().serializeData(
             result,
@@ -107,7 +111,7 @@ class Mapping(
      * @return The mapped data as a JSON string
      */
     fun executeToJson(sourceData: Any): String {
-        return executeToFormat(sourceData, FormatType.JSON)
+        return executeToFormat(sourceData, Format.JSON)
     }
 
     /**
@@ -117,6 +121,6 @@ class Mapping(
      * @return The mapped data as an XML string
      */
     fun executeToXml(sourceData: Any): String {
-        return executeToFormat(sourceData, FormatType.XML)
+        return executeToFormat(sourceData, Format.XML)
     }
 }

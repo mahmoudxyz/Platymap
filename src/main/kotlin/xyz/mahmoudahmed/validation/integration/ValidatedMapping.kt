@@ -1,6 +1,6 @@
 package xyz.mahmoudahmed.validation.integration
 
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 import xyz.mahmoudahmed.validation.core.PreValidator
 import xyz.mahmoudahmed.validation.core.ValidationDsl
 import xyz.mahmoudahmed.validation.builders.ValidationDslBuilder
@@ -45,7 +45,7 @@ class ValidatedMapping(
     /**
      * Executes the mapping and returns the result in the specified format.
      */
-    fun executeToFormat(sourceData: Any, outputFormat: FormatType): String {
+    fun executeToFormat(sourceData: Any, outputFormat: Format): String {
         val result = execute(sourceData)
         return mapping.executeToFormat(result, outputFormat)
     }
@@ -54,14 +54,14 @@ class ValidatedMapping(
      * Executes the mapping to JSON format with validation.
      */
     fun executeToJson(sourceData: Any): String {
-        return executeToFormat(sourceData, FormatType.JSON)
+        return executeToFormat(sourceData, Format.JSON)
     }
 
     /**
      * Executes the mapping to XML format with validation.
      */
     fun executeToXml(sourceData: Any): String {
-        return executeToFormat(sourceData, FormatType.XML)
+        return executeToFormat(sourceData, Format.XML)
     }
 }
 
