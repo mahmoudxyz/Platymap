@@ -31,7 +31,7 @@ class FormatDetectionServiceTest {
             val result = detectionService.detectFormat(jsonData)
 
             // Then
-            assertEquals(FormatType.JSON, result)
+            assertEquals(Format.JSON, result)
         }
 
         @Test
@@ -43,7 +43,7 @@ class FormatDetectionServiceTest {
             val result = detectionService.detectFormat(xmlData)
 
             // Then
-            assertEquals(FormatType.XML, result)
+            assertEquals(Format.XML, result)
         }
 
         @Test
@@ -57,7 +57,7 @@ class FormatDetectionServiceTest {
             val result = detectionService.detectFormat(csvData)
 
             // Then
-            assertEquals(FormatType.CSV, result)
+            assertEquals(Format.CSV, result)
         }
 
         @Test
@@ -85,7 +85,7 @@ class FormatDetectionServiceTest {
             val result = detectionService.detectFormat(yamlData)
 
             // Then
-            assertEquals(FormatType.YAML, result)
+            assertEquals(Format.YAML, result)
         }
 
         @Test
@@ -97,7 +97,7 @@ class FormatDetectionServiceTest {
             val result = detectionService.detectFormat(emptyData)
 
             // Then
-            assertEquals(FormatType.UNKNOWN, result)
+            assertEquals(Format.UNKNOWN, result)
         }
 
         @Test
@@ -110,7 +110,7 @@ class FormatDetectionServiceTest {
 
             println(result)
             // Then
-            assertEquals(FormatType.UNKNOWN, result)
+            assertEquals(Format.UNKNOWN, result)
         }
 
     }
@@ -128,7 +128,7 @@ class FormatDetectionServiceTest {
             val result = detectionService.detectFormat(inputStream)
 
             // Then
-            assertEquals(FormatType.JSON, result)
+            assertEquals(Format.JSON, result)
         }
 
         @Test
@@ -140,7 +140,7 @@ class FormatDetectionServiceTest {
             val result = detectionService.detectFormat(emptyStream)
 
             // Then
-            assertEquals(FormatType.UNKNOWN, result)
+            assertEquals(Format.UNKNOWN, result)
         }
     }
 
@@ -160,7 +160,7 @@ class FormatDetectionServiceTest {
             val result = detectionService.detectFormat(jsonFile)
 
             // Then
-            assertEquals(FormatType.JSON, result)
+            assertEquals(Format.JSON, result)
         }
 
         @Test
@@ -175,24 +175,24 @@ class FormatDetectionServiceTest {
             val result = detectionService.detectFormat(jsonFile)
 
             // Then
-            assertEquals(FormatType.JSON, result)
+            assertEquals(Format.JSON, result)
         }
 
         @Test
         fun `should detect various file formats by extension`() {
             // Test all supported extensions
             val extensions = mapOf(
-                "json" to FormatType.JSON,
-                "xml" to FormatType.XML,
-                "csv" to FormatType.CSV,
-                "yml" to FormatType.YAML,
-                "yaml" to FormatType.YAML,
-                "properties" to FormatType.PROPERTIES,
-                "avro" to FormatType.AVRO,
-                "proto" to FormatType.PROTOBUF,
-                "parquet" to FormatType.PARQUET,
-                "xls" to FormatType.EXCEL,
-                "xlsx" to FormatType.EXCEL
+                "json" to Format.JSON,
+                "xml" to Format.XML,
+                "csv" to Format.CSV,
+                "yml" to Format.YAML,
+                "yaml" to Format.YAML,
+                "properties" to Format.PROPERTIES,
+                "avro" to Format.AVRO,
+                "proto" to Format.PROTOBUF,
+                "parquet" to Format.PARQUET,
+                "xls" to Format.EXCEL,
+                "xlsx" to Format.EXCEL
             )
 
             extensions.forEach { (ext, type) ->

@@ -3,7 +3,7 @@ package xyz.mahmoudahmed.adapter.json
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import xyz.mahmoudahmed.adapter.DataNode
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 import java.nio.file.Files
 
 class JsonInputAdapterTest {
@@ -11,9 +11,9 @@ class JsonInputAdapterTest {
 
     @Test
     fun `test can handle JSON format`() {
-        assertTrue(adapter.canHandle(FormatType.JSON))
-        assertFalse(adapter.canHandle(FormatType.XML))
-        assertFalse(adapter.canHandle(FormatType.CSV))
+        assertTrue(adapter.canHandle(Format.JSON))
+        assertFalse(adapter.canHandle(Format.XML))
+        assertFalse(adapter.canHandle(Format.CSV))
     }
 
     @Test

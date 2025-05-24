@@ -366,9 +366,9 @@ class YamlFormatDetectorTest {
             name: CI
             on:
               push:
-                branches: [ main ]
+                branches: [ xyz.mahmoudahmed.main ]
               pull_request:
-                branches: [ main ]
+                branches: [ xyz.mahmoudahmed.main ]
             jobs:
               build:
                 runs-on: ubuntu-latest

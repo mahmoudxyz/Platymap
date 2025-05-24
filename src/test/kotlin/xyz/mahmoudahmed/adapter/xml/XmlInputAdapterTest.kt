@@ -3,15 +3,15 @@ package xyz.mahmoudahmed.adapter.xml
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import xyz.mahmoudahmed.adapter.DataNode
-import xyz.mahmoudahmed.format.FormatType
+import xyz.mahmoudahmed.format.Format
 
 class XmlInputAdapterTest {
     private val adapter = XmlInputAdapter()
 
     @Test
     fun `test can handle XML format`() {
-        assertTrue(adapter.canHandle(FormatType.XML))
-        assertFalse(adapter.canHandle(FormatType.JSON))
+        assertTrue(adapter.canHandle(Format.XML))
+        assertFalse(adapter.canHandle(Format.JSON))
     }
 
     @Test
