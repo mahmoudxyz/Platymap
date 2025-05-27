@@ -13,9 +13,9 @@ import xyz.mahmoudahmed.logging.LogMappingRule
 import xyz.mahmoudahmed.logging.LoggingDslBuilder
 
 class TargetBuilder internal constructor(
-    private val sourceName: String,
+    val sourceName: String,
     private val sourceFormat: Format,
-    private val targetName: String,
+    val targetName: String,
     private val targetFormat: Format = Format.JSON,
     private val rules: MutableList<MappingRule> = mutableListOf()
 
@@ -25,8 +25,19 @@ class TargetBuilder internal constructor(
     fun withFormat(format: Format): TargetBuilder =
         TargetBuilder(sourceName, sourceFormat, targetName, format, rules)
 
+    /**
+     * Maps a single source field to a target.
+     */
     fun map(sourcePath: String): MappingBuilder =
-        MappingBuilder(this, sourcePath)
+        MappingBuilder(this, listOf(sourcePath))
+
+    /**
+     * Maps multiple source fields to be combined.
+     */
+    fun map(vararg sourcePaths: String): MappingBuilder =
+        MappingBuilder(this, sourcePaths.toList())
+
+
 
     /**
      * Map all fields that match a pattern.

@@ -1,5 +1,7 @@
 package xyz.mahmoudahmed.dsl.collections
 
+import NestedTargetPathBuilder
+
 /**
  * Builder for configuring a source path in a nested mapping.
  */

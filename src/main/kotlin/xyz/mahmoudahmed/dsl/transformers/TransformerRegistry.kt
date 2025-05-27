@@ -46,5 +46,6 @@ object TransformerRegistry {
         CollectionTransformers.registerAll()
         ConditionalTransformers.registerAll()
         TypeConversionTransformers.registerAll()
+        FieldCombinationTransformers.registerAll()
     }
 }

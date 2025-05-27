@@ -28,6 +28,7 @@ class NestingTargetBuilder(
             fieldNameExtractor, valueTransformation, isCollection,
             includeNullValues, strictTypeHandling
         )
+        println()
         parent.addRule(rule)
         return parent
     }

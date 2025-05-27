@@ -1,13 +1,14 @@
 package xyz.mahmoudahmed.dsl.builders
 
-import xyz.mahmoudahmed.dsl.transformers.StringTransformers
+import xyz.mahmoudahmed.dsl.transformers.MultiplyBy
 import xyz.mahmoudahmed.dsl.transformers.TransformerRegistry
 
 class MappingBuilder(
     private val parent: TargetBuilder,
-    private val sourcePath: String
+    private val sourcePaths: List<String>
 ) {
     private var transformation: ((Any) -> Any)? = null
+    private var multiFieldTransformation: ((List<Any?>) -> Any)? = null
     private var condition: ((Any) -> Boolean)? = null
 
     init {
@@ -16,10 +17,37 @@ class MappingBuilder(
     }
 
 
-    fun to(targetPath: String): TargetPathBuilder {
-        return TargetPathBuilder(parent, sourcePath, targetPath, transformation, condition)
+    /**
+     * Overloaded to() method that returns appropriate builder type based on field count.
+     * For single fields, returns TargetPathBuilder.
+     * For multiple fields, returns MultiFieldTargetPathBuilder.
+     */
+    fun toM(targetPath: String): MultiFieldTargetPathBuilder {
+        return MultiFieldTargetPathBuilder(
+            parent,
+            sourcePaths,
+            targetPath,
+            multiFieldTransformation,
+            condition
+        )
+
     }
 
+    /**
+     * Overloaded to() method that returns appropriate builder type based on field count.
+     * For single fields, returns TargetPathBuilder.
+     * For multiple fields, returns MultiFieldTargetPathBuilder.
+     */
+    fun to(targetPath: String): SingleFieldTargetPathBuilderImpl {
+
+        return SingleFieldTargetPathBuilderImpl(
+            parent,
+            sourcePaths[0],
+            targetPath,
+            transformation,
+            condition
+        )
+    }
 
     /**
      * Apply a named transformer from the registry.
@@ -35,18 +63,26 @@ class MappingBuilder(
      * Transformations are composed so that multiple transformations can be applied.
      */
     fun transform(newTransformation: (Any) -> Any): MappingBuilder {
-        // If there's an existing transformation, compose them
         val currentTransformation = this.transformation
         this.transformation = if (currentTransformation != null) {
-            // Apply current transformation first, then the new one
             { value -> newTransformation(currentTransformation(value)) }
         } else {
-            // First transformation
             newTransformation
         }
         return this
     }
 
+    /**
+     * Apply a transformation to multiple field values.
+     */
+    fun transformM(transformation: (List<Any?>) -> Any): MappingBuilder {
+        if (sourcePaths.size <= 1) {
+            throw IllegalStateException("Use transform() for single field mappings")
+        }
+
+        this.multiFieldTransformation = transformation
+        return this
+    }
 
 
     /**
@@ -56,7 +92,6 @@ class MappingBuilder(
         this.condition = condition
         return this
     }
-
 
 
     //-----------------------------------------------
@@ -105,6 +140,12 @@ class MappingBuilder(
     //-----------------------------------------------
 
     fun increment(): MappingBuilder = applyTransformer("increment")
+
+    fun times(multiplier: Double): MappingBuilder {
+        val transformer = MultiplyBy(multiplier)
+        println()
+        return transform(transformer::transform)
+    }
 
     fun decrement(): MappingBuilder = applyTransformer("decrement")
 
@@ -271,7 +312,6 @@ class MappingBuilder(
     fun trimAndLowercase(): MappingBuilder = trim().lowercase()
 
     fun normalizeEmailAndMask(): MappingBuilder = normalizeEmail().mask()
-
 
 
 }

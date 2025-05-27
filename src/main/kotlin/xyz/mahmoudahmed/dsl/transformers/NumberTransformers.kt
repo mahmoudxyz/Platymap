@@ -12,6 +12,7 @@ object NumberTransformers {
     fun registerAll() {
         AddTransformer(1).register("increment")
         AddTransformer(-1).register("decrement")
+        MultiplyBy(1.0).register("multiply")
         MultiplyTransformer(100).register("toPercentage")
         MultiplyTransformer(0.01).register("fromPercentage")
         RoundTransformer().register("round")

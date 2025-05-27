@@ -1,8 +1,6 @@
-package xyz.mahmoudahmed.dsl.collections
+import xyz.mahmoudahmed.dsl.collections.NestedMappingBuilder
+import xyz.mahmoudahmed.dsl.collections.NestedSimpleMapping
 
-/**
- * Builder for finalizing a nested mapping.
- */
 class NestedTargetPathBuilder(
     private val parent: NestedMappingBuilder,
     private val sourcePath: String,
@@ -15,10 +13,10 @@ class NestedTargetPathBuilder(
      * @return The parent nested mapping builder
      */
     fun end(): NestedMappingBuilder {
-        val fullTargetPath = buildTargetPath()
+        // Just use the targetPath directly, no need to prefix it
         val rule = NestedSimpleMapping<Any>(
             sourcePath,
-            fullTargetPath,
+            targetPath,  // Use targetPath directly
             transformation,
             null
         )
@@ -27,10 +25,6 @@ class NestedTargetPathBuilder(
     }
 
     private fun buildTargetPath(): String {
-        return if (targetPath.startsWith(".")) {
-            parent.targetCollectionPath + targetPath
-        } else {
-            "${parent.targetCollectionPath}.$targetPath"
-        }
+        return targetPath
     }
 }

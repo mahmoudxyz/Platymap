@@ -28,13 +28,33 @@ fun extractStringValue(value: Any): String {
 
 /**
  * Helper function to extract number value from various types.
+ * Safely handles non-numeric strings and edge cases.
  */
 fun extractNumberValue(value: Any): Double {
     return when (value) {
         is DataNode.NumberValue -> value.value.toDouble()
-        is DataNode -> value.asDouble ?: 0.0
+        is DataNode.StringValue -> {
+            // Safely attempt to parse string as number
+            value.value.toDoubleOrNull() ?: 0.0
+        }
+        is DataNode.BooleanValue -> {
+            // Convert boolean to numeric: true = 1.0, false = 0.0
+            if (value.value) 1.0 else 0.0
+        }
+        is DataNode -> {
+            // Handle other DataNode types via asDouble method with fallback
+            value.asDouble ?: 0.0
+        }
         is Number -> value.toDouble()
-        else -> value.toString().toDoubleOrNull() ?: 0.0
+        is Boolean -> if (value) 1.0 else 0.0
+        is String -> {
+            // Safely attempt to parse string as number
+            value.toDoubleOrNull() ?: 0.0
+        }
+        else -> {
+            // Last resort: try to convert toString() to number, fallback to 0.0
+            value.toString().toDoubleOrNull() ?: 0.0
+        }
     }
 }
 

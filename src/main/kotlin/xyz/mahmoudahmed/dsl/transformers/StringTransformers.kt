@@ -1,9 +1,5 @@
 package xyz.mahmoudahmed.dsl.transformers
 
-import xyz.mahmoudahmed.adapter.DataNode
-import java.text.Normalizer
-import java.util.*
-import java.util.regex.Pattern
 
 /**
  * Collection of string-related transformers.

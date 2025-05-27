@@ -12,6 +12,7 @@ class ForEachItemBuilder(
     private val itemName: String
 ) {
     private val nestedRules = mutableListOf<MappingRule>()
+    private var targetCollection: String? = null
 
     /**
      * Creates a nested collection at the specified path.
@@ -20,6 +21,7 @@ class ForEachItemBuilder(
      * @return Builder for nested mappings
      */
     fun create(targetCollection: String): NestedMappingBuilder {
+        this.targetCollection = targetCollection
         return NestedMappingBuilder(this, targetCollection)
     }
 
@@ -29,10 +31,19 @@ class ForEachItemBuilder(
      * @return The parent target builder
      */
     fun end(): TargetBuilder {
-        parent.addRule(ForEachMapping(collectionPath, itemName, nestedRules))
+        if (targetCollection == null) {
+            throw IllegalStateException("Target collection path not specified. Call create() before end().")
+        }
+
+        parent.addRule(ForEachMapping(collectionPath, itemName, targetCollection!!, nestedRules))
         return parent
     }
 
+    /**
+     * Adds a rule to the nested rules collection.
+     *
+     * @param rule The mapping rule to add
+     */
     internal fun addNestedRule(rule: MappingRule) {
         nestedRules.add(rule)
     }

@@ -2,27 +2,27 @@ package xyz.mahmoudahmed.dsl.builders
 
 import xyz.mahmoudahmed.dsl.core.SimpleMapping
 
-class TargetPathBuilder(
+class SingleFieldTargetPathBuilderImpl(
     private val parent: TargetBuilder,
     private val sourcePath: String,
     private val targetPath: String,
     private var transformation: ((Any) -> Any)?,
     private var condition: ((Any) -> Boolean)?
-): ITargetPathBuilder {
-    fun using(function: (Any) -> Any): TargetBuilder {
+) : SingleFieldTargetPathBuilder {
+
+    override fun end(): TargetBuilder {
+        finalizeMappingRule()
+        return parent
+    }
+
+    override fun using(function: (Any) -> Any): TargetBuilder {
         this.transformation = function
         finalizeMappingRule()
         return parent
     }
 
-    fun chooseIf(condition: (Any) -> Boolean): TargetBuilder {
+    override fun chooseIf(condition: (Any) -> Boolean): TargetBuilder {
         this.condition = condition
-        finalizeMappingRule()
-        return parent
-    }
-
-    // Finalize and return to parent
-    override fun end(): TargetBuilder {
         finalizeMappingRule()
         return parent
     }

@@ -15,8 +15,8 @@ class Mapping(
     private val sourceFormat: Format,
     val targetName: String,
     private val targetFormat: Format,
-    private val rules: List<MappingRule>,
-    private val properties: Map<String, Any> = emptyMap()
+    val rules: List<MappingRule>,
+    val properties: Map<String, Any> = emptyMap()
 ) {
 
     /**

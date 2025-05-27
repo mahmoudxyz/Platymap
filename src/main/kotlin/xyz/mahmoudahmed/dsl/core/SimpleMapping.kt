@@ -19,8 +19,10 @@ class SimpleMapping(
 
         val sourceValue = context.getValueByPath(sourcePath) ?: return
 
+
         val targetValue = if (transformation != null) {
             try {
+                println()
                 transformation.invoke(sourceValue)
             } catch (e: Exception) {
                 throw MappingExecutionException(

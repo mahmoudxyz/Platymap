@@ -3,7 +3,7 @@ package xyz.mahmoudahmed.dsl.functions
 /**
  * Builder for creating a new mapping function.
  */
-class FunctionBuilder(private val name: String) {
+class FunctionBuilder(val name: String) {
     private val parameters = mutableListOf<String>()
 
     /**

@@ -6,7 +6,10 @@ sealed class DataNode {
         operator fun set(key: String, value: DataNode) {
             properties[key] = value
         }
+
     }
+
+
 
     data class ArrayNode(val elements: MutableList<DataNode> = mutableListOf()) : DataNode() {
         operator fun get(index: Int): DataNode? =
@@ -21,6 +24,8 @@ sealed class DataNode {
     data object NullValue : DataNode()
 
 
+
+
     val asString: String? get() = (this as? StringValue)?.value
     val asInt: Int? get() = (this as? NumberValue)?.value?.toInt()
     val asDouble: Double? get() = (this as? NumberValue)?.value?.toDouble()
@@ -28,4 +33,12 @@ sealed class DataNode {
     val asObject: ObjectNode? get() = this as? ObjectNode
     val asArray: ArrayNode? get() = this as? ArrayNode
     val isNull: Boolean get() = this is NullValue
+}
+
+fun DataNode?.getPath(vararg path: String): DataNode? {
+    var current: DataNode? = this
+    for (key in path) {
+        current = (current as? DataNode.ObjectNode)?.get(key) ?: return null
+    }
+    return current
 }
