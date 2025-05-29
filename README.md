@@ -26,16 +26,12 @@ Platymap is a powerful data transformation library written in Kotlin, designed t
 
 #### Maven
 ```xml
-<dependency>
-    <groupId>com.platymap</groupId>
-    <artifactId>platymap-core</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-</dependency>
+To be added
 ```
 
 #### Gradle
 ```kotlin
-implementation("com.platymap:platymap-core:1.0.0-SNAPSHOT")
+To be added
 ```
 
 ### Basic Usage
